@@ -72,19 +72,18 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
     if w_values == 2:
         c1, c2 = tcl[0][0], tcl[1][0]
         m = f_sig# * np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 5000)
-        int2 = np.random.normal(c2, m*c2, 5000)
+        int1 = np.random.normal(c1, m, 5000)
+        int2 = np.random.normal(c2, m, 5000)
 
         list2 = list(range(len(int1)))
 
         for i1, j1 in zip(list2, list2):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3]
 
-            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / 0.1*err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
 
-            if int1[i1] >= 0. and int2[j1] >= 0. and p >= 0. and p <= 50000.:
+            if int1[i1] >= 0. and int2[j1] >= 0. and p >= 0. and p <= 500.:
                 fp = open('Confidence_limits_2nd.dat', 'a')
                 fp.write('{0:f} {1:f} {2:f}\n'.format(int1[i1], int2[j1], p))
                 fp.close()
@@ -141,20 +140,20 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
     elif w_values == 3:
         c1, c2, c3 = tcl[0][0], tcl[1][0], tcl[2][0]
         m = f_sig# * np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 1000)
-        int2 = np.random.normal(c2, m*c2, 1000)
-        int3 = np.random.normal(c3, m*c3, 1000)
+        int1 = np.random.normal(c1, m, 1000)
+        int2 = np.random.normal(c2, m, 1000)
+        int3 = np.random.normal(c3, m, 1000)
 
         list2 = list(range(len(int1)))
 
         for i1, j1, k1 in zip(list2, list2, list2):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3] + int3[k1] * dainp[:, 5]
 
-            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / 0.1*err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
+            print(p)
 
-            if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and p >= 0. and p <= 50000.:
+            if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and p >= 0.:
                 fp = open('Confidence_limits_2nd.dat', 'a')
                 fp.write('{0:f} {1:f} {2:f} {3:f}\n'.format(int1[i1], int2[j1], int3[k1], p))
                 fp.close()
@@ -211,19 +210,19 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
     elif w_values == 4:
         c1, c2, c3, c4 = tcl[0][0], tcl[1][0], tcl[2][0], tcl[3][0]
         m = f_sig# * np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 1000)
-        int2 = np.random.normal(c2, m*c2, 1000)
-        int3 = np.random.normal(c3, m*c3, 1000)
-        int4 = np.random.normal(c4, m*c4, 1000)
+        int1 = np.random.normal(c1, m, 1000)
+        int2 = np.random.normal(c2, m, 1000)
+        int3 = np.random.normal(c3, m, 1000)
+        int4 = np.random.normal(c4, m, 1000)
 
         list2 = list(range(len(int1)))
 
         for i1, j1, k1, l1 in zip(list2, list2, list2, list2):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3] + int3[k1] * dainp[:, 5] + int4[l1] * dainp[:, 7]
 
-            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / 0.1*err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
+            print(p)
 
             if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and int4[l1] >= 0. and p >= 0. and p <= 500.:
                 fp = open('Confidence_limits_2nd.dat', 'a')
@@ -282,33 +281,32 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
 
     elif w_values == 5:
         c1, c2, c3, c4, c5 = tcl[0][0], tcl[1][0], tcl[2][0], tcl[3][0], tcl[4][0]
-        m = f_sig #* np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 1000)
-        int2 = np.random.normal(c2, m*c2, 1000)
-        int3 = np.random.normal(c3, m*c3, 1000)
-        int4 = np.random.normal(c4, m*c4, 1000)
-        int5 = np.random.normal(c5, m*c5, 1000)
+        m = f_sig# * np.std(err_y)
+        print('m:', m, f_sig, np.std(err_y),c1)
+        int1 = np.random.normal(c1, m, 1000)
+        int2 = np.random.normal(c2, m, 1000)
+        int3 = np.random.normal(c3, m, 1000)
+        int4 = np.random.normal(c4, m, 1000)
+        int5 = np.random.normal(c5, m, 1000)
 
         list2 = list(range(len(int1)))
 
         for i1, j1, k1, l1, m1 in zip(list2, list2, list2, list2, list2):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3] + int3[k1] * dainp[:, 5] + int4[l1] * dainp[:, 7] + \
                  int5[m1] * dainp[:, 9]
-            
-            #err_y0 = f1#err_y*1
 
             #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #p = 5000000*(1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / 1*err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
+            print('P values are:', p)
             
-            """import scipy.stats as stats
-            chi_square_test_statistic, p_value = stats.chisquare(ydata0, f1)
-            # chi square test statistic and p value
-            print('chi_square_test_statistic is : ' + str(chi_square_test_statistic))
-            print('p_value : ' + str(p_value))"""
+            #np.savetxt('model_'+str(i1)+'.txt', np.transpose([xdata0, ydata0, err_y, f1]))
+            #plt.plot(xdata0, ydata0, color='black')
+            #plt.plot(xdata0, f1, color='limegreen')
+            #plt.show()
 
             if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and int4[l1] >= 0. and int5[
-                m1] >= 0. and p >= 0. and p <= 1000000.:
+                m1] >= 0. and p >= 0.:
                 fp = open('Confidence_limits_2nd.dat', 'a')
                 fp.write(
                     '{0:f} {1:f} {2:f} {3:f} {4:f} {5:f}\n'.format(int1[i1], int2[j1], int3[k1], int4[l1], int5[m1], p))
@@ -368,12 +366,13 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
     elif w_values == 6:
         c1, c2, c3, c4, c5, c6 = tcl[0][0], tcl[1][0], tcl[2][0], tcl[3][0], tcl[4][0], tcl[5][0]
         m = f_sig# * np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 1000)
-        int2 = np.random.normal(c2, m*c2, 1000)
-        int3 = np.random.normal(c3, m*c3, 1000)
-        int4 = np.random.normal(c4, m*c4, 1000)
-        int5 = np.random.normal(c5, m*c5, 1000)
-        int6 = np.random.normal(c6, m*c6, 1000)
+        print('params:', f_sig, np.std(err_y))
+        int1 = np.random.normal(c1, m, 1000)
+        int2 = np.random.normal(c2, m, 1000)
+        int3 = np.random.normal(c3, m, 1000)
+        int4 = np.random.normal(c4, m, 1000)
+        int5 = np.random.normal(c5, m, 1000)
+        int6 = np.random.normal(c6, m, 1000)
 
         list2 = list(range(len(int1)))
 
@@ -381,12 +380,12 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3] + int3[k1] * dainp[:, 5] + int4[l1] * dainp[:, 7] + \
                  int5[m1] * dainp[:, 9] + int6[n1] * dainp[:, 11]
 
-            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #p = 1*(1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
+            print(p)
 
             if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and int4[l1] >= 0. and int5[m1] >= 0. and int6[
-                n1] >= 0. and p >= 0. and p <= 1100.:
+                n1] >= 0. and p >= 0. and p <= 1e10:
                 fp = open('Confidence_limits_2nd.dat', 'a')
                 fp.write('{0:f} {1:f} {2:f} {3:f} {4:f} {5:f} {6:f}\n'.format(int1[i1], int2[j1], int3[k1], int4[l1],
                                                                               int5[m1], int6[n1], p))
@@ -416,23 +415,26 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
         fig = plt.figure()
         from ENIIGMA.Stats import Stats_contour as stc
         file1 = pathdir + 'Confidence_limits_2nd.dat'
-        stc.st_plot_contour6(file1, pathdir)
-        plt.savefig(pp, format='pdf', bbox_inches='tight')
+        try:
+            stc.st_plot_contour6(file1, pathdir)
+            plt.savefig(pp, format='pdf', bbox_inches='tight')
 
-        from ENIIGMA.Stats import Stats_plot as stp
+            from ENIIGMA.Stats import Stats_plot as stp
 
-        fig = plt.figure()
-        stp.min_max(xdata0, ydata0, e_min, e_max, pathdir)
-        plt.savefig(pp, format='pdf', bbox_inches='tight')
+            fig = plt.figure()
+            stp.min_max(xdata0, ydata0, e_min, e_max, pathdir)
+            plt.savefig(pp, format='pdf', bbox_inches='tight')
 
-        fig = plt.figure()
-        file2 = pathdir + 'output_file.txt'
-        fileqmin = pathdir + 'q_min.txt'
-        fileqmax = pathdir + 'q_max.txt'
-        for fn in glob.glob(pathdir + "Merge*"):  # Remove the Merge files
-            os.remove(fn)
-        stp.deconv_best(xdata0, ydata0, e_min, e_max, pathdir)
-        plt.savefig(pp, format='pdf', bbox_inches='tight')
+            fig = plt.figure()
+            file2 = pathdir + 'output_file.txt'
+            fileqmin = pathdir + 'q_min.txt'
+            fileqmax = pathdir + 'q_max.txt'
+            for fn in glob.glob(pathdir + "Merge*"):  # Remove the Merge files
+                os.remove(fn)
+            stp.deconv_best(xdata0, ydata0, e_min, e_max, pathdir)
+            plt.savefig(pp, format='pdf', bbox_inches='tight')
+        except:
+            print('Failed')
 
         try:
             fig = plt.figure()
@@ -447,13 +449,13 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
     elif w_values == 7:
         c1, c2, c3, c4, c5, c6, c7 = tcl[0][0], tcl[1][0], tcl[2][0], tcl[3][0], tcl[4][0], tcl[5][0], tcl[6][0]
         m = f_sig# * np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 2000)
-        int2 = np.random.normal(c2, m*c2, 2000)
-        int3 = np.random.normal(c3, m*c3, 2000)
-        int4 = np.random.normal(c4, m*c4, 2000)
-        int5 = np.random.normal(c5, m*c5, 2000)
-        int6 = np.random.normal(c6, m*c6, 2000)
-        int7 = np.random.normal(c7, m*c7, 2000)
+        int1 = np.random.normal(c1, m, 5000)
+        int2 = np.random.normal(c2, m, 5000)
+        int3 = np.random.normal(c3, m, 5000)
+        int4 = np.random.normal(c4, m, 5000)
+        int5 = np.random.normal(c5, m, 5000)
+        int6 = np.random.normal(c6, m, 5000)
+        int7 = np.random.normal(c7, m, 5000)
 
         list2 = list(range(len(int1)))
 
@@ -461,12 +463,13 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3] + int3[k1] * dainp[:, 5] + int4[l1] * dainp[:, 7] + \
                  int5[m1] * dainp[:, 9] + int6[n1] * dainp[:, 11] + int7[o1] * dainp[:, 13]
 
-            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #err_yv2 = np.random.normal(err_y[1000], m, 8000)
+            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / 0.001*err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
+            print(p)
 
             if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and int4[l1] >= 0. and int5[m1] >= 0. and int6[
-                n1] >= 0. and int7[o1] >= 0. and p >= 0. and p <= 1058.:
+                n1] >= 0. and int7[o1] >= 0. and p >= 0.:
                 fp = open('Confidence_limits_2nd.dat', 'a')
                 fp.write(
                     '{0:f} {1:f} {2:f} {3:f} {4:f} {5:f} {6:f} {7:f}\n'.format(int1[i1], int2[j1], int3[k1], int4[l1],
@@ -531,14 +534,14 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
         c1, c2, c3, c4, c5, c6, c7, c8 = tcl[0][0], tcl[1][0], tcl[2][0], tcl[3][0], tcl[4][0], tcl[5][0], tcl[6][0], \
                                          tcl[7][0]
         m = f_sig# * np.std(err_y)
-        int1 = np.random.normal(c1, m*c1, 5000)
-        int2 = np.random.normal(c2, m*c2, 5000)
-        int3 = np.random.normal(c3, m*c3, 5000)
-        int4 = np.random.normal(c4, m*c4, 5000)
-        int5 = np.random.normal(c5, m*c5, 5000)
-        int6 = np.random.normal(c6, m*c6, 5000)
-        int7 = np.random.normal(c7, m*c7, 5000)
-        int8 = np.random.normal(c8, m*c8, 5000)
+        int1 = np.random.normal(c1, m, 5000)
+        int2 = np.random.normal(c2, m, 5000)
+        int3 = np.random.normal(c3, m, 5000)
+        int4 = np.random.normal(c4, m, 5000)
+        int5 = np.random.normal(c5, m, 5000)
+        int6 = np.random.normal(c6, m, 5000)
+        int7 = np.random.normal(c7, m, 5000)
+        int8 = np.random.normal(c8, m, 5000)
 
         list2 = list(range(len(int1)))
 
@@ -546,12 +549,13 @@ def stats_blockt(ntt, new_tau, etau, fileout, filecl, pathdir, f_sig=5):
             f1 = int1[i1] * dainp[:, 1] + int2[j1] * dainp[:, 3] + int3[k1] * dainp[:, 5] + int4[l1] * dainp[:, 7] + \
                  int5[m1] * dainp[:, 9] + int6[n1] * dainp[:, 11] + int7[o1] * dainp[:, 13] + int8[q1] * dainp[:, 15]
 
-            #p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
-            p = 1 * np.sum((ydata0 - f1)**2 / f1)
-            print('Generated chi2 values:', p)
+            #p = 1e-1*(1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1) / err_y) ** 2)
+            p = (1. / (len(ydata0) - 1. - w_values)) * np.sum(((ydata0 - f1)/(1*err_y))**2)
+            print(p)
+            #p = (1. / (1.)) * np.sum(((ydata0 - f1) / 1.) ** 2)
 
             if int1[i1] >= 0. and int2[j1] >= 0. and int3[k1] >= 0. and int4[l1] >= 0. and int5[m1] >= 0. and int6[
-                n1] >= 0. and int7[o1] >= 0. and int8[q1] >= 0. and p >= 0. and p <= 1000.:
+                n1] >= 0. and int7[o1] >= 0. and int8[q1] >= 0. and p >= 0. and p <= 1e10:
                 fp = open('Confidence_limits_2nd.dat', 'a')
                 fp.write('{0:f} {1:f} {2:f} {3:f} {4:f} {5:f} {6:f} {7:f} {8:f}\n'.format(int1[i1], int2[j1], int3[k1],
                                                                                           int4[l1], int5[m1], int6[n1],
