@@ -158,7 +158,8 @@ def st_plot_contour2(file1, pathdir):
         # levs = np.power(100, lev_exp)
         # cs = ax.contourf(xi, yi, zi, levs, norm=colors.LogNorm())
         # print min(z), max(z)
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        #levs = np.linspace(0,30, 10)
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
 
         # Version with w1 and specie names separated
@@ -327,7 +328,8 @@ def st_plot_contour3(file1, pathdir):
             w3_min.append(min(yv))
             w3_max.append(max(yv))
 
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        #levs = np.linspace(0,30, 10)
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # plt.xticks(fontsize = 18)
         # plt.yticks(fontsize = 18)
@@ -482,7 +484,8 @@ def st_plot_contour4(file1, pathdir):
     w1_min, w1_max, w2_min, w2_max, w3_min, w3_max, w4_min, w4_max = [], [], [], [], [], [], [], []
     fig = plt.figure(figsize=(30, 33.7))
 
-    pos = np.array([1, 4, 5, 7, 8, 9])
+    #pos = np.array([1, 4, 5, 7, 8, 9])
+    pos = np.array([1, 4, 7, 5, 8, 9])
     ar1 = list(range(len(a)))
     ar2 = list(range(len(pos)))
     for i, j in zip(ar1, ar2):
@@ -497,10 +500,16 @@ def st_plot_contour4(file1, pathdir):
         # print count1+1
         x, y, z = p1, p2, p3
 
-        xll = x.min();
-        xul = x.max();
-        yll = y.min();
-        yul = y.max()
+        #xll = x.min();
+        #xul = x.max();
+        #yll = y.min();
+        #yul = y.max()
+        
+        xll = x.min()-0.5*x.min();
+        xul = x.max()+0.5*x.max();
+        yll = y.min()-0.5*y.min();
+        yul = y.max()+0.5*y.max()
+        
         xmin0 = np.where(z == np.min(z))
         xmin0 = x[xmin0[0][0]]
         ymin0 = np.where(z == np.min(z))
@@ -543,7 +552,7 @@ def st_plot_contour4(file1, pathdir):
             w4_min.append(min(yv))
             w4_max.append(max(yv))
 
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # plt.xticks(fontsize = 18)
         # plt.yticks(fontsize = 18)
@@ -687,6 +696,7 @@ def st_plot_contour5(file1, pathdir):
         '_', ':'), nsp5.replace('_', ':')
 
     labels = [nsp1, nsp2, nsp3, nsp4, nsp5]
+    print('labels', labels)
 
     ucv = data2.shape[1]  # number of columns
     w_values = data2.shape[1] - 2  # weight values
@@ -701,7 +711,6 @@ def st_plot_contour5(file1, pathdir):
 
     chi = data2[:, ucv - 1]  # [min0:max0]
     deltachi = chi - min(chi)
-    print('Dchi2:', deltachi)
 
     c = np.linspace(0, w_values, ucv - 1)
     a = list(combinations(c, 2))
@@ -714,7 +723,7 @@ def st_plot_contour5(file1, pathdir):
     w1_min, w1_max, w2_min, w2_max, w3_min, w3_max, w4_min, w4_max, w5_min, w5_max = [], [], [], [], [], [], [], [], [], []
     fig = plt.figure(figsize=(30, 33.7))
 
-    pos = np.array([1, 5, 6, 9, 10, 11, 13, 14, 15, 16])
+    pos = np.array([1, 5, 9, 13, 6, 10, 14, 11, 15, 16])
     ar1 = list(range(len(a)))
     ar2 = list(range(len(pos)))
     for i, j in zip(ar1, ar2):
@@ -725,19 +734,32 @@ def st_plot_contour5(file1, pathdir):
         p2 = data2[:, s1][min0:max0]
         p3 = deltachi[min0:max0]
         cc = pos[j]
+        print('CCis:', cc)
         ax = fig.add_subplot(4, 4, cc)  # fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(9.75, 3))
         # print count1+1
         x, y, z = p1, p2, p3
 
-        xll = x.min();
-        xul = x.max();
-        yll = y.min();
-        yul = y.max()
+        #xmin, xmax, ymin, ymax = 0.0, 0.2, 0., 0.2
+        #xll = xmin;
+        #xul = xmax;
+        #yll = ymin;
+        #yul = ymax
+        
+        #xll = x.min();
+        #xul = x.max();
+        #yll = y.min();
+        #yul = y.max()
+        
+        xll = x.min()-1.1*x.min();
+        xul = x.max()+1.1*x.max();
+        yll = y.min()-1.1*y.min();
+        yul = y.max()+1.1*y.max()
+        
         xmin0 = np.where(z == np.min(z))
         xmin0 = x[xmin0[0][0]]
         ymin0 = np.where(z == np.min(z))
         ymin0 = y[ymin0[0][0]]
-        interp = scipy.interpolate.Rbf(x, y, z, smooth=2, function='linear')
+        interp = scipy.interpolate.Rbf(x, y, z, smooth=3, function='linear')
         yi, xi = np.mgrid[yll:yul:100j, xll:xul:100j]
         # min_fitness_idx = numpy.where(fitness == numpy.min(fitness))
         # min_xi = np.where(np.min(xi) == sig3)
@@ -779,8 +801,8 @@ def st_plot_contour5(file1, pathdir):
             w5_min.append(min(yv))
             w5_max.append(max(yv))
 
-        print('vals:', min(z), max(z))
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        #levs = np.linspace(0,30, 10)
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # plt.xticks(fontsize = 18)
         # plt.yticks(fontsize = 18)
@@ -791,6 +813,8 @@ def st_plot_contour5(file1, pathdir):
             plt.tick_params(bottom='on')
             ax.set_xlabel(r'$\mathrm{' + labels[s0] + '}$', fontsize=18)
             ax.set_ylabel('w' + '$_' + str(s1 + 1) + '$', fontsize=45)
+            print('P1.1:', r'$\mathrm{' + labels[s0] + '}$')
+            print('P1.2:', 'w' + '$_' + str(s1 + 1) + '$')
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10)
@@ -798,12 +822,14 @@ def st_plot_contour5(file1, pathdir):
         else:
             # ax.set_xlabel(r'$\mathrm{'+'w'+'_'+str(s0+1)+'('+labels[s0]+'}$'+')', fontsize=45)
             ax.set_xlabel('w' + '$_' + str(s0 + 1) + '$', fontsize=45)
+            print('P2.1:', 'w' + '$_' + str(s0 + 1) + '$')
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10, rotation=45)
             ax.tick_params(which='minor', length=5, width=1, direction='in', labelsize=45, zorder=10)
 
         if cc == 6 or cc == 10 or cc == 11 or cc == 14 or cc == 15 or cc == 16:
+            print('P3')
             plt.gca().axes.get_yaxis().set_visible(True)
             plt.tick_params(left='on')
             ax.yaxis.set_ticks_position('both')
@@ -817,6 +843,7 @@ def st_plot_contour5(file1, pathdir):
             # ax.set_xlabel(r'$\mathrm{'+labels[s0]+'}$', fontsize=18)
             ax.set_ylabel(r'$\mathrm{' + 'w' + '_' + str(s1 + 1) + '(' + labels[s1] + '}$' + ')', fontsize=1)
         else:
+            print('P4:')
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.set_ylabel('w' + '$_' + str(s1 + 1) + '$', fontsize=45)
@@ -969,25 +996,34 @@ def st_plot_contour6(file1, pathdir):
     w1_min, w1_max, w2_min, w2_max, w3_min, w3_max, w4_min, w4_max, w5_min, w5_max, w6_min, w6_max = [], [], [], [], [], [], [], [], [], [], [], []
     fig = plt.figure(figsize=(30, 33.7))
 
-    pos = np.array([1, 6, 7, 11, 12, 13, 16, 17, 18, 19, 21, 22, 23, 24, 25])
+    #pos = np.array([1, 6, 7, 11, 12, 13, 16, 17, 18, 19, 21, 22, 23, 24, 25])
+    pos = np.array([1, 6, 11, 16, 21, 7, 12, 17, 22, 13, 18, 23, 19, 24, 25])
     ar1 = list(range(len(a)))
     ar2 = list(range(len(pos)))
+    print(ar1, ar2)
     for i, j in zip(ar1, ar2):
-        # print a[i][idx0], a[i][idx1]
         s0 = int(a[i][idx0])
         s1 = int(a[i][idx1])
+        #print('indexes',i,j,s0,s1)
         p1 = data2[:, s0][min0:max0]
         p2 = data2[:, s1][min0:max0]
         p3 = deltachi[min0:max0]
         cc = pos[j]
+        print('Pos:', cc)
         ax = fig.add_subplot(5, 5, cc)  # fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(9.75, 3))
         # print count1+1
         x, y, z = p1, p2, p3
 
-        xll = x.min();
-        xul = x.max();
-        yll = y.min();
-        yul = y.max()
+        xll = x.min() - 1.5*x.min();
+        xul = x.max() + 1.5*x.max();
+        yll = y.min() - 1.5*y.min();
+        yul = y.max() + 1.5*x.min()
+        
+        #xmin, xmax, ymin, ymax = 0.0, 4, 0., 4.
+        #xll = xmin;
+        #xul = xmax;
+        #yll = ymin;
+        #yul = ymax
         interp = scipy.interpolate.Rbf(x, y, z, smooth=3, function='linear')
         yi, xi = np.mgrid[yll:yul:100j, xll:xul:100j]
         # min_fitness_idx = numpy.where(fitness == numpy.min(fitness))
@@ -996,7 +1032,7 @@ def st_plot_contour6(file1, pathdir):
         contours1 = plt.contour(xi, yi, zi, [sig1], colors='olive', linestyle=':.', linewidths=4)
         contours2 = plt.contour(xi, yi, zi, [sig2], colors='gold', linestyle=':', linewidths=4)
         contours3 = plt.contour(xi, yi, zi, [sig3], colors='red', linestyle=':.', linewidths=4)
-        pv = contours2.collections[0].get_paths()[0]
+        pv = contours1.collections[0].get_paths()[0]
         vv = pv.vertices
         xv = vv[:, 0]
         yv = vv[:, 1]
@@ -1034,17 +1070,19 @@ def st_plot_contour6(file1, pathdir):
             w6_min.append(min(yv))
             w6_max.append(max(yv))
 
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        #levs = np.linspace(0,30, 10)
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # plt.xticks(fontsize = 18)
         # plt.yticks(fontsize = 18)
 
         # Version with w1 and specie names separated
-        if cc == 1 or cc == 6 or cc == 11 or cc == 16:
+        if cc == 1 or cc == 6 or cc == 11 or cc == 16 or cc==21:
             plt.setp(ax.get_xticklabels(), visible=False)
             plt.tick_params(bottom='on')
             # ax.set_xlabel(r'$\mathrm{'+labels[s0]+'}$', fontsize=18)
             ax.set_ylabel('w' + '$_' + str(s1 + 1) + '$', fontsize=45)
+            print('s1+1:', s1, str(s1 + 1), nsp1)
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10)
@@ -1052,13 +1090,14 @@ def st_plot_contour6(file1, pathdir):
         else:
             # ax.set_xlabel(r'$\mathrm{'+'w'+'_'+str(s0+1)+'('+labels[s0]+'}$'+')', fontsize=45)
             ax.set_xlabel('w' + '$_' + str(s0 + 1) + '$', fontsize=45)
+            print('s0+1:', str(s0 + 1))
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10, rotation=45)
             ax.tick_params(which='minor', length=5, width=1, direction='in', labelsize=45, zorder=10)
-
-        if cc == 7 or cc == 12 or cc == 13 or cc == 17 or cc == 18 or cc == 19 or cc == 21 or cc == 22 or cc == 23 or cc == 24 or cc == 25:
-            plt.gca().axes.get_yaxis().set_visible(True)
+        
+        if cc == 7 or cc == 12 or cc == 13 or cc == 17 or cc == 18 or cc == 19 or cc == 21:
+            plt.setp(ax.get_xticklabels(), visible=False)
             plt.tick_params(left='on')
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
@@ -1069,13 +1108,25 @@ def st_plot_contour6(file1, pathdir):
             # plt.setp(ax.get_yticklabels(), visible=True)
             # plt.tick_params(left='off')
             # ax.set_xlabel(r'$\mathrm{'+labels[s0]+'}$', fontsize=18)
-            ax.set_ylabel(r'$\mathrm{' + 'w' + '_' + str(s1 + 1) + '(' + labels[s1] + '}$' + ')', fontsize=1)
+            #ax.set_ylabel('Test', fontsize=18)
+            #ax.set_ylabel(r'$\mathrm{' + 'w' + '_' + str(s1 + 1) + '(' + labels[s1] + '}$' + ')', fontsize=1)
         else:
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.set_ylabel('w' + '$_' + str(s1 + 1) + '$', fontsize=45)
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10)
             ax.tick_params(which='minor', length=5, width=1, direction='in', labelsize=45, zorder=10)
+        if cc == 22 or cc == 23 or cc == 24 or cc == 25:
+            plt.setp(ax.get_xticklabels(), visible=True)
+            plt.setp(ax.get_yticklabels(), visible=False)
+            plt.tick_params(left='on')
+            ax.yaxis.set_ticks_position('both')
+            ax.xaxis.set_ticks_position('both')
+            ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10)
+            ax.tick_params(which='minor', length=5, width=1, direction='in', labelsize=45, zorder=10)
+            ax.set_yticklabels([])
+        
+        
 
         count1 = count1 + 1
 
@@ -1235,7 +1286,8 @@ def st_plot_contour7(file1, pathdir):
     w1_min, w1_max, w2_min, w2_max, w3_min, w3_max, w4_min, w4_max, w5_min, w5_max, w6_min, w6_max, w7_min, w7_max = [], [], [], [], [], [], [], [], [], [], [], [], [], []
     fig = plt.figure(figsize=(30, 33.7))
 
-    pos = np.array([1, 8, 15, 22, 29, 36, 9, 16, 23, 30, 37, 17, 24, 31, 38, 25, 32, 39, 33, 40, 41])
+    #pos = np.array([1, 8, 15, 22, 29, 36, 9, 16, 23, 30, 37, 17, 24, 31, 38, 25, 32, 39, 33, 40, 41])
+    pos = np.array([1, 7, 13, 19, 25, 31, 8, 14, 20, 26, 32, 15, 21, 27, 33, 22,28,31, 29,35,36])
     ar1 = list(range(len(a)))
     ar2 = list(range(len(pos)))
     for i, j in zip(ar1, ar2):
@@ -1246,12 +1298,12 @@ def st_plot_contour7(file1, pathdir):
         p2 = data2[:, s1][min0:max0]
         p3 = deltachi[min0:max0]
         cc = pos[j]
-        ax = fig.add_subplot(7, 7, cc)  # fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(9.75, 3))
+        ax = fig.add_subplot(6, 6, cc)  # fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(9.75, 3))
         # print count1+1
         x, y, z = p1, p2, p3
 
         # xll = x.min();  xul = x.max();  yll = y.min();  yul = y.max()
-        xmin, xmax, ymin, ymax = 0.0, 1., 0., 1.
+        xmin, xmax, ymin, ymax = 0.0, 5., 0., 5.
         xll = xmin;
         xul = xmax;
         yll = ymin;
@@ -1260,15 +1312,15 @@ def st_plot_contour7(file1, pathdir):
         xmin0 = x[xmin0[0][0]]
         ymin0 = np.where(z == np.min(z))
         ymin0 = y[ymin0[0][0]]
-        interp = scipy.interpolate.Rbf(x, y, z, smooth=3, function='linear')
+        interp = scipy.interpolate.Rbf(x, y, z, smooth=1, function='linear')
         yi, xi = np.mgrid[yll:yul:100j, xll:xul:100j]
         # min_fitness_idx = numpy.where(fitness == numpy.min(fitness))
         # min_xi = np.where(np.min(xi) == sig3)
         zi = interp(xi, yi)
-        contours1 = plt.contour(xi, yi, zi, [sig1], colors='olive', linestyle=':.', linewidths=4)
+        contours1 = plt.contour(xi, yi, zi, [4.0], colors='olive', linestyle=':.', linewidths=4)
         contours2 = plt.contour(xi, yi, zi, [sig2], colors='gold', linestyle=':', linewidths=4)
         contours3 = plt.contour(xi, yi, zi, [sig3], colors='red', linestyle=':.', linewidths=4)
-        pv = contours2.collections[0].get_paths()[0]
+        pv = contours1.collections[0].get_paths()[0]
         vv = pv.vertices
         xv = vv[:, 0]
         yv = vv[:, 1]
@@ -1310,8 +1362,8 @@ def st_plot_contour7(file1, pathdir):
             w7_min.append(min(yv))
             w7_max.append(max(yv))
 
-        
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        #levs = np.linspace(0,30, 10)
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # cs = ax.contourf(xi, yi, zi, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # plt.xticks(fontsize = 18)
@@ -1321,8 +1373,8 @@ def st_plot_contour7(file1, pathdir):
         if cc == 1 or cc == 8 or cc == 15 or cc == 22 or cc == 29 or cc == 36 or cc == 9 or cc == 16 or cc == 23 or cc == 30 or cc == 37 or cc == 17 or cc == 24 or cc == 31 or cc == 38 or cc == 25 or cc == 32 or cc == 39 or cc == 33 or cc == 40 or cc == 41:
             plt.setp(ax.get_xticklabels(), visible=False)
             plt.tick_params(bottom='on')
-            ax.set_yticks((0., 0.5))
-            ax.set_xticks((0., 0.5))
+            ax.set_yticks((0., 2.5, 5.0))
+            #ax.set_xticks((0., 2.5, 5.0))
             # ax.set_xlabel(r'$\mathrm{'+labels[s0]+'}$', fontsize=18)
             ax.set_xlabel('w' + '$_' + str(s0 + 1) + '$', fontsize=45)
             ax.set_ylabel('w' + '$_' + str(s1 + 1) + '$', fontsize=45)
@@ -1336,6 +1388,8 @@ def st_plot_contour7(file1, pathdir):
             plt.setp(ax.get_xticklabels(), visible=False)
             # ax.set_xlabel(r'$\mathrm{'+'w'+'_'+str(s0+1)+'('+labels[s0]+'}$'+')', fontsize=45)
             ax.set_xlabel('w' + '$_' + str(s0 + 1) + '$', fontsize=45)
+            #ax.set_yticks((0., 2.5, 5.0))
+            ax.set_xticks((0., 2.5, 5.0))
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10, rotation=45)
@@ -1554,8 +1608,7 @@ def st_plot_contour8(file1, pathdir):
     w1_min, w1_max, w2_min, w2_max, w3_min, w3_max, w4_min, w4_max, w5_min, w5_max, w6_min, w6_max, w7_min, w7_max, w8_min, w8_max = [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []
     fig = plt.figure(figsize=(30, 33.7))
 
-    pos = np.array(
-        [1, 8, 15, 22, 29, 36, 43, 9, 16, 23, 30, 37, 44, 17, 24, 31, 38, 45, 25, 32, 39, 46, 33, 40, 47, 41, 48, 49])
+    pos = np.array([1, 8, 15, 22, 29, 36, 43, 9, 16, 23, 30, 37, 44, 17, 24, 31, 38, 45, 25, 32, 39, 46, 33, 40, 47, 41, 48, 49])
     ar1 = list(range(len(a)))
     ar2 = list(range(len(pos)))
     for i, j in zip(ar1, ar2):
@@ -1570,12 +1623,12 @@ def st_plot_contour8(file1, pathdir):
         # print count1+1
         x, y, z = p1, p2, p3
 
-        # xll = x.min();  xul = x.max();  yll = y.min();  yul = y.max()
-        xmin, xmax, ymin, ymax = 0.0, 1., 0., 1.
-        xll = xmin;
-        xul = xmax;
-        yll = ymin;
-        yul = ymax
+        xll = x.min();  xul = x.max();  yll = y.min();  yul = y.max()
+        #xmin, xmax, ymin, ymax = 0.0, 0.1, 0., 0.1
+        #xll = xmin;
+        #xul = xmax;
+        #yll = ymin;
+        #yul = ymax
         xmin0 = np.where(z == np.min(z))
         xmin0 = x[xmin0[0][0]]
         ymin0 = np.where(z == np.min(z))
@@ -1585,10 +1638,10 @@ def st_plot_contour8(file1, pathdir):
         # min_fitness_idx = numpy.where(fitness == numpy.min(fitness))
         # min_xi = np.where(np.min(xi) == sig3)
         zi = interp(xi, yi)
-        contours1 = plt.contour(xi, yi, zi, [sig1], colors='olive', linestyle=':.', linewidths=4)
+        contours1 = plt.contour(xi, yi, zi, [4.0], colors='olive', linestyle=':.', linewidths=4)
         contours2 = plt.contour(xi, yi, zi, [sig2], colors='gold', linestyle=':', linewidths=4)
         contours3 = plt.contour(xi, yi, zi, [sig3], colors='red', linestyle=':.', linewidths=4)
-        pv = contours2.collections[0].get_paths()[0]
+        pv = contours1.collections[0].get_paths()[0]
         vv = pv.vertices
         xv = vv[:, 0]
         yv = vv[:, 1]
@@ -1635,8 +1688,9 @@ def st_plot_contour8(file1, pathdir):
             w8_min.append(min(yv))
             w8_max.append(max(yv))
 
-        levs = np.linspace(0,100,100)#[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 80, 100]
-        cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
+        
+        levs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        #levs = np.linspace(0,30, 10)
         cs = ax.contourf(xi, yi, zi, levs, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # cs = ax.contourf(xi, yi, zi, cmap=plt.cm.gray, vmin=min(z), vmax=max(z), zorder=0)
         # plt.xticks(fontsize = 18)
@@ -1647,8 +1701,8 @@ def st_plot_contour8(file1, pathdir):
             plt.setp(ax.get_xticklabels(), visible=False)
             plt.tick_params(bottom='on')
             ax.minorticks_on()
-            ax.set_yticks((0.5, 1.0))
-            ax.set_xticks((0.5, 1.0))
+            #ax.set_yticks((0, 2.5, 5.0))
+            #ax.set_xticks((0, 2.5, 5.0))
             # ax.set_xlabel(r'$\mathrm{'+labels[s0]+'}$', fontsize=18)
             ax.set_ylabel('w' + '$_' + str(s1 + 1) + '$', fontsize=45)
             ax.yaxis.set_ticks_position('both')
@@ -1668,8 +1722,8 @@ def st_plot_contour8(file1, pathdir):
             plt.gca().axes.get_yaxis().set_visible(True)
             plt.tick_params(left='on')
             ax.minorticks_on()
-            ax.set_yticks((0.5, 1.0))
-            ax.set_xticks((0.5, 1.0))
+            #ax.set_yticks((0, 2.5, 5.0))
+            #ax.set_xticks((0, 2.5, 5.0))
             ax.yaxis.set_ticks_position('both')
             ax.xaxis.set_ticks_position('both')
             ax.tick_params(which='major', length=10, width=1, direction='in', labelsize=45, zorder=10)
