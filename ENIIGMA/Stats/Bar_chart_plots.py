@@ -44,7 +44,7 @@ def bar(dir=os.getcwd() + '/', sig_level=1.):
     df = pd.read_csv(Best,sep=',')
     n_genes = df.shape[1] - 3 # number of genes
     n_lines = df.shape[0]
-    n_solutions = n_lines/n_genes
+    #n_solutions = n_lines/n_genes
     #print('NN:', n_genes)
     
     header = []
@@ -60,59 +60,27 @@ def bar(dir=os.getcwd() + '/', sig_level=1.):
     name = tb['name']
     chi = tb['best_chi']
     deltachi = chi - min(chi)
-    
-    if n_genes == 2:
-      c1, c2 = tb['w1'], tb['w2']
-    elif n_genes == 3:
-      c1, c2, c3 = tb['w1'], tb['w2'], tb['w3']
-    elif n_genes == 4:
-      c1, c2, c3, c4 = tb['w1'], tb['w2'], tb['w3'], tb['w4']
-    elif n_genes == 5:
-      c1, c2, c3, c4, c5 = tb['w1'], tb['w2'], tb['w3'], tb['w4'], tb['w5']
-    elif n_genes == 6:
-      c1, c2, c3, c4, c5, c6 = tb['w1'], tb['w2'], tb['w3'], tb['w4'], tb['w5'], tb['w6']
-    elif n_genes == 7:
-      c1, c2, c3, c4, c5, c6, c7  = tb['w1'], tb['w2'], tb['w3'], tb['w4'], tb['w5'], tb['w6'], tb['w7']
-    elif n_genes == 8:
-      c1, c2, c3, c4, c5, c6, c7, c8 = tb['w1'], tb['w2'], tb['w3'], tb['w4'], tb['w5'], tb['w6'], tb['w7'], tb['w8']
 
     sig1 = sig_level
-
-    list1 = list(range(len(name)))
+    
+    n_solutions = len(np.where( deltachi <= sig1)[0])/n_genes
 
     fs = open(pathdir + 'select1.txt', 'w')
-    for j in list1:
-      if deltachi[j] <= sig1 and n_genes == 2 and c1[j] > 0. and c2[j] > 0.:
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
-      elif deltachi[j] <= sig1 and n_genes == 3 and c1[j] > 0. and c2[j] > 0. and c3[j] > 0.:
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
-      elif deltachi[j] <= sig1 and n_genes == 4 and c1[j] > 0. and c2[j] > 0. and c3[j] > 0. and c4[j] > 0.:
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
-      elif deltachi[j] <= sig1 and n_genes == 5 and c1[j] > 0. and c2[j] > 0. and c3[j] > 0. and c4[j] > 0. and c5[j] > 0.:
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
-      elif deltachi[j] <= sig1 and n_genes == 6 and c1[j] > 0. and c2[j] > 0. and c3[j] > 0. and c4[j] > 0. and c5[j] > 0. and c6[j] > 0.:
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
-      elif deltachi[j] <= sig1 and n_genes == 7 and c1[j] > 0. and c2[j] > 0. and c3[j] > 0. and c4[j] > 0. and c5[j] > 0. and c6[j] > 0. and c7[j] > 0.:
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
-      elif deltachi[j] <= sig1 and n_genes == 8 and c1[j] > 0. and c2[j] > 0. and c3[j] > 0. and c4[j] > 0. and c5[j] > 0. and c6[j] > 0. and c7[j] > 0. and c8[j] > 0.:
-        #print(cmin[j])
-        rename = os.path.splitext(os.path.basename(name[j]))[0]
-        rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
-        fs.write('{0:s}\n'.format(rename))
+    count = 0
+    for t0 in range(0, n_lines, n_genes):
+      for z in range(n_genes):
+        #print(z,t0, 'w'+str(z+1))
+        #rename = os.path.splitext(os.path.basename(name[count]))[0]
+        #print(tb['w'+str(z+1)][t0])
+        if deltachi[t0] <= sig1 and tb['w'+str(z+1)][t0] > 0.:
+          rename = os.path.splitext(os.path.basename(name[count]))[0]
+          rename = rename.replace('_', ':').replace('V3', '').replace('H2', 'H$_2$').replace('H3', 'H$_3$').replace('H4', 'H$_4$').replace('H5', 'H$_5$').replace('H6', 'H$_6$').replace('H7', 'H$_7$').replace('H8','H$_8$').replace('H9', 'H$_9$').replace('O2', 'O$_2$').replace('O3', 'O$_3$').replace('O4', 'O$_4$').replace('O5','O$_5$').replace('O6', 'O$_6$').replace('O7', 'O$_7$').replace('O8', 'O$_8$').replace('O9', 'O$_9$').replace('C2','C$_2$').replace('C3', 'C$_3$').replace('C4', 'C$_4$').replace('C5', 'C$_5$').replace('C6', 'C$_6$').replace('C7','C$_7$').replace('C8', 'C$_8$').replace('C9', 'C$_9$').replace('N2', 'N$_2$').replace('N3', 'N$_3$').replace('N4','N$_4$').replace('N5', 'N$_5$').replace('N6', 'N$_6$').replace('N7', 'N$_7$').replace('N8', 'N$_8$').replace('N9','N$_9$')
+          #print('P2', tb['w'+str(z+1)][t0], rename)
+          fs.write('{0:s}\n'.format(rename))
+        count = count + 1
     fs.close()
-
+    
+    
     store_f1 = pathdir + 'select1.txt'
 
     tb = pd.read_csv(store_f1, sep='\s+', header=None)
